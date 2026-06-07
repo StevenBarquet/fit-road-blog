@@ -3,11 +3,14 @@
 // ---Dependencies
 import { type ReactElement } from 'react';
 import dayjs from 'dayjs';
+import 'dayjs/locale/es';
 // ---Custom Hooks
 import { useBitacoraStore } from 'src/app/_store/bitacoraData/bitacoraStore';
 // ---Config
 import { CALIFICACION_COLORS, CALIFICACION_LABELS } from '../BitacoraCalendar/calendarUtils';
 import style from './DaySummary.module.scss';
+
+dayjs.locale('es');
 
 export function DaySummary(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
@@ -37,22 +40,24 @@ export function DaySummary(): ReactElement {
   return (
     <div className={style.DaySummary}>
       <header>
-        <span>{dayjs(entry.fecha).format('dddd D [de] MMMM')}</span>
-        <span
-          className="badge"
-          style={{ backgroundColor: CALIFICACION_COLORS[entry.calificacion] }}
-        >
-          {entry.calificacion} — {CALIFICACION_LABELS[entry.calificacion]}
-        </span>
+        <span>{dayjs(entry.id).format('dddd D [de] MMMM')}</span>
+        {entry.calificacion && (
+          <span
+            className="badge"
+            style={{ backgroundColor: CALIFICACION_COLORS[entry.calificacion] }}
+          >
+            {entry.calificacion} — {CALIFICACION_LABELS[entry.calificacion]}
+          </span>
+        )}
       </header>
 
       <ul>
         <li>
-          <strong>{entry.peso}</strong>
+          <strong>{entry.peso ?? '—'}</strong>
           <small>kg</small>
         </li>
         <li>
-          <strong>{entry.nivel}</strong>
+          <strong>{entry.nivel ?? '—'}</strong>
           <small>nivel</small>
         </li>
       </ul>

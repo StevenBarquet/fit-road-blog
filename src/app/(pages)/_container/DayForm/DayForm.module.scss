@@ -1,0 +1,52 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.DayForm {
+  .field-group {
+    margin-bottom: 20px;
+  }
+
+  .field-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: $dark3;
+    margin-bottom: 8px;
+  }
+
+  .radio-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .radio-btn {
+    flex: 1;
+    height: 44px;
+    border: 2px solid $dark8;
+    border-radius: 10px;
+    background: transparent;
+    font-size: 16px;
+    font-weight: 700;
+    color: $dark3;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .radio-btn.active {
+    color: white;
+    border-color: transparent;
+  }
+
+  .radio-btn.nivel.active {
+    background-color: $primaryColor;
+    border-color: $primaryColor;
+    color: white;
+  }
+
+  .actions {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

@@ -173,7 +173,7 @@ SCSS modules have class collision names disabled — no need for `:global` to ta
 
 - Fetch hooks live in `src/app/_querys/<entity>/`
 - Hook names: `useFetch<Entity><Action>` (e.g., `useFetchBitacoraMonth`)
-- Hooks connect tRPC queries to the zustand store via `onSuccess`
+- Hooks connect tRPC queries to the zustand store via `onSuccess` callback in the query options
 
 ## Zustand Store Conventions
 
@@ -220,6 +220,47 @@ src/env/
 - `secrets.js` is the local fallback; in production, values are injected via `process.env`
 - Each profile file uses the `class Environments` + named export pattern
 - Never commit `secrets.js` — it's gitignored
+
+## Form Conventions (Formik)
+
+### Custom Hook Pattern
+
+Every form MUST be implemented through a custom hook that encapsulates all Formik logic. The component only renders — it never owns form state or submit logic.
+
+```tsx
+// useMyForm.ts
+export function useMyForm() {
+  const formik = useFormik({
+    initialValues: { ... },
+    validationSchema: mySchema,
+    onSubmit: async (values) => { ... },
+  });
+
+  return { formik };
+}
+
+// MyFormComponent.tsx
+export function MyFormComponent(): ReactElement {
+  const { formik } = useMyForm();
+  // render using formik.values, formik.handleChange, etc.
+}
+```
+
+### Rules
+
+- The hook returns `{ formik }` (and any extra helpers if needed)
+- All submit logic, validation, side effects (swal confirms, mutations, drawer closing) live in the hook
+- The component is purely presentational — it destructures from the hook and renders
+- Hook file lives in the same folder as the component: `ComponentName/useComponentNameForm.ts`
+
+## useEffect Rules
+
+- **Never use `useEffect` unless absolutely impossible to achieve otherwise**
+- For syncing server data to store: use `onSuccess` callbacks in tRPC query hooks
+- For derived state: compute it inline or use Zustand computed functions
+- For subscriptions/event listeners: use dedicated hooks (`useEventListener`)
+- If you think you need `useEffect`, first consider: Zustand, context, `onSuccess`, computed values, or restructuring the data flow
+- The only acceptable uses: third-party library integration that requires imperative setup, or browser APIs with no React binding
 
 ## TypeScript Conventions
 

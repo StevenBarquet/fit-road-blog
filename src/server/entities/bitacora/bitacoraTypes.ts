@@ -5,19 +5,14 @@ export const NIVELES = [1, 2, 3] as const;
 export type Nivel = (typeof NIVELES)[number];
 
 export interface ModelBitacora {
-  fecha: string;
-  peso: number;
-  calificacion: Calificacion;
-  nivel: Nivel;
+  peso: number | null;
+  calificacion: Calificacion | null;
+  nivel: Nivel | null;
   nota: string;
 }
 
 export interface BitacoraFromDB extends ModelBitacora {
-  id: string;
+  id: string; // YYYY-MM-DD (document ID = date)
 }
 
-export interface ModelBitacoraUpdate extends Partial<ModelBitacora> {
-  id: string;
-}
-
-export type CreateBitacora = ModelBitacora;
+export type UpsertBitacora = Partial<ModelBitacora> & { id: string };

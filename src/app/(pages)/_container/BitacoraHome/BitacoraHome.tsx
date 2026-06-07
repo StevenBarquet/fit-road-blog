@@ -8,6 +8,7 @@ import { useFetchBitacoraMonth } from 'src/app/_querys/bitacora/useFetchBitacora
 // ---Components
 import { BitacoraCalendar } from '../BitacoraCalendar/BitacoraCalendar';
 import { DaySummary } from '../DaySummary/DaySummary';
+import { DayDrawer } from '../DayDrawer/DayDrawer';
 // ---Config
 import style from './BitacoraHome.module.scss';
 
@@ -30,6 +31,8 @@ export function BitacoraHome(): ReactElement {
           <DaySummary />
         </>
       )}
+
+      <DayDrawer />
     </div>
   );
 }

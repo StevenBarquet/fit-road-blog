@@ -4,12 +4,12 @@ import { DB_NAME } from "./dbConstants";
 import { allEnvs } from "src/shared/config/allEnvs";
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: allEnvs.NEXT_PUBLIC_FIREBASE_API_KEY,
+  apiKey: allEnvs.FIREBASE_API_KEY,
   authDomain: "temporales-y-demos.firebaseapp.com",
   projectId: "temporales-y-demos",
   storageBucket: "temporales-y-demos.firebasestorage.app",
-  messagingSenderId: allEnvs.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: allEnvs.NEXT_PUBLIC_FIREBASE_APP_ID,
+  messagingSenderId: allEnvs.FIREBASE_MESSAGING_SENDER_ID,
+  appId: allEnvs.FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

@@ -8,6 +8,7 @@ interface State {
   selectedDate: string | null;
   currentMonth: number;
   currentYear: number;
+  drawerOpen: boolean;
 }
 
 const initialState: State = {
@@ -15,12 +16,14 @@ const initialState: State = {
   selectedDate: dayjs().format('YYYY-MM-DD'),
   currentMonth: dayjs().month(),
   currentYear: dayjs().year(),
+  drawerOpen: false,
 };
 
 export interface BitacoraStore extends State {
   setEntries: (entries: BitacoraFromDB[]) => void;
   setSelectedDate: (date: string | null) => void;
   setCurrentMonth: (month: number, year: number) => void;
+  setDrawerOpen: (open: boolean) => void;
   getSelectedEntry: () => BitacoraFromDB | undefined;
   reset: () => void;
 }
@@ -30,10 +33,11 @@ const actions: StateCreator<BitacoraStore> = (set, get) => ({
   setEntries: (entries) => set({ entries }),
   setSelectedDate: (selectedDate) => set({ selectedDate }),
   setCurrentMonth: (currentMonth, currentYear) => set({ currentMonth, currentYear }),
+  setDrawerOpen: (drawerOpen) => set({ drawerOpen }),
   getSelectedEntry: () => {
     const { entries, selectedDate } = get();
     if (!selectedDate) return undefined;
-    return entries.find((e) => e.fecha === selectedDate);
+    return entries.find((e) => e.id === selectedDate);
   },
   reset: () => set(initialState),
 });

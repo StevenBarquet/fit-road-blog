@@ -12,13 +12,14 @@ import style from './BitacoraCalendar.module.scss';
 
 export function BitacoraCalendar(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const { entries, selectedDate, setSelectedDate, setCurrentMonth } = useBitacoraStore();
+  const { entries, selectedDate, setSelectedDate, setCurrentMonth, setDrawerOpen } = useBitacoraStore();
 
-  const entriesByDate = new Map(entries.map((e) => [e.fecha, e]));
+  const entriesByDate = new Map(entries.map((e) => [e.id, e]));
 
   // -----------------------MAIN METHODS
   function onSelect(date: Dayjs) {
     setSelectedDate(date.format('YYYY-MM-DD'));
+    setDrawerOpen(true);
   }
 
   function onPanelChange(date: Dayjs) {
@@ -32,7 +33,7 @@ export function BitacoraCalendar(): ReactElement {
 
     return (
       <div className={`day-cell ${isSelected ? 'selected' : ''}`}>
-        {entry && (
+        {entry && entry.calificacion && (
           <span
             className="dot"
             style={{ backgroundColor: CALIFICACION_COLORS[entry.calificacion] }}

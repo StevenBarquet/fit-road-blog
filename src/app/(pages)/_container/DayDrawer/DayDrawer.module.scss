@@ -1,0 +1,18 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.DayDrawer {
+  .ant-drawer-content-wrapper {
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+  }
+
+  .ant-drawer-header {
+    text-transform: capitalize;
+    font-weight: 600;
+  }
+
+  .ant-drawer-body {
+    padding: 16px 20px;
+  }
+}
