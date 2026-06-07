@@ -1,14 +1,15 @@
 import { type FirebaseOptions, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { DB_NAME } from "./dbConstants";
+import { allEnvs } from "src/shared/config/allEnvs";
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: "AIzaSyAB4w5Jl2lN7tkCMfggHXXqRiuijfekBI0",
+  apiKey: allEnvs.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: "temporales-y-demos.firebaseapp.com",
   projectId: "temporales-y-demos",
   storageBucket: "temporales-y-demos.firebasestorage.app",
-  messagingSenderId: "967684871084",
-  appId: "1:967684871084:web:e764c9a44847c658626009",
+  messagingSenderId: allEnvs.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: allEnvs.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

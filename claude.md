@@ -184,6 +184,43 @@ SCSS modules have class collision names disabled — no need for `:global` to ta
 - Derived/computed values can be functions on the store (e.g., `getSelectedEntry`)
 - Use the `update` pattern from plop template for simple stores: `update: (data) => set((state) => ({ ...state, ...data }))`
 
+## Environment Variables
+
+### Structure
+
+```
+src/env/
+├── profiles/
+│   ├── default.mjs    # Base variables (shared across all environments)
+│   ├── dev.mjs        # Dev-only overrides
+│   ├── prod.mjs       # Prod-only overrides
+│   └── secrets.js     # Sensitive values (gitignored, local-only)
+└── loadEnvs.mjs       # Loader: merges layers, validates, exports
+```
+
+### How It Works
+
+- `loadEnvs.mjs` merges: `defaultEnvs + runtimeEnvs (dev or prod based on NODE_ENV)`
+- Runtime envs override default envs on key collision
+- After merge, `verify()` validates that no variable is undefined or empty string — fails fast with descriptive error
+- Final typed export: `src/shared/config/allEnvs.ts` casts the validated result as `NonUndefined<>` so TypeScript knows all values are `string`
+
+### Adding a New Variable
+
+1. **Non-sensitive:** Add directly in `default.mjs`, `dev.mjs`, or `prod.mjs` as appropriate
+2. **Sensitive:** Add to `secrets.js` with the real value, then reference it in `default.mjs` (or `prod.mjs`) with the pattern:
+   ```js
+   MY_VAR = process.env.MY_VAR || secrets?.MY_VAR;
+   ```
+3. Import from `src/shared/config/allEnvs` wherever needed — never use `process.env` directly in app code
+
+### Conventions
+
+- Frontend variables require `NEXT_PUBLIC_` prefix
+- `secrets.js` is the local fallback; in production, values are injected via `process.env`
+- Each profile file uses the `class Environments` + named export pattern
+- Never commit `secrets.js` — it's gitignored
+
 ## TypeScript Conventions
 
 - Use `type` imports where possible
