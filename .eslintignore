@@ -1,0 +1,5 @@
+src/env
+scripts
+node_modules
+generators
+next.config.js

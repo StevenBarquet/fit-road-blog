@@ -1,0 +1,32 @@
+import { create, type StateCreator } from 'zustand';
+import { devtools } from 'zustand/middleware';
+
+interface State {
+  count: number;
+}
+
+const initialState: State = {
+  count: 0,
+};
+
+export interface {{pascalCase name}}Store extends State {
+  update: (data: Partial<State>) => void;
+  updateNested: (key: keyof State, data: Partial<State>[keyof State]) => void;
+  set: (data: State) => void;
+  reset: () => void;
+}
+
+// Si quieres ocupar logica compleja, puedes manejar las actions en otro archivo
+const actions: StateCreator<{{pascalCase name}}Store> = (set) => ({
+  ...initialState,
+  update: (data) => set((state) => ({ ...state, ...data })),
+  updateNested: (key, data) => set((state) => ({ ...state, [key]: { ...state[key], ...data } })),
+  set: (data) => set(() => data),
+  reset: () => set(() => initialState),
+});
+
+// ------------BOILERPLATE-----
+
+export const use{{pascalCase name}}Store = create<{{pascalCase name}}Store>()(
+  devtools(actions, { name: '{{pascalCase name}}' }),
+);

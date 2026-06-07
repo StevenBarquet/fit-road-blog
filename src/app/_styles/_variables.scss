@@ -1,0 +1,70 @@
+//----------------------Main Colors------------------
+//----------------------Primary
+$primaryColor: #16a4ab;
+$primaryColor1: mix($primaryColor, white, 10%);
+$primaryColor2: mix($primaryColor, white, 20%);
+$primaryColor3: mix($primaryColor, white, 30%);
+$primaryColor4: mix($primaryColor, white, 40%);
+$primaryColor5: mix($primaryColor, white, 50%);
+$primaryColor6: mix($primaryColor, white, 60%);
+$primaryColor7: mix($primaryColor, white, 70%);
+$primaryColor8: mix($primaryColor, white, 80%);
+$primaryColor9: mix($primaryColor, white, 90%);
+$primaryColor10: mix($primaryColor, white, 100%); // color base
+$primaryColor11: mix($primaryColor, black, 90%);
+$primaryColor12: mix($primaryColor, black, 80%);
+$primaryColor13: mix($primaryColor, black, 70%);
+$primaryColor14: mix($primaryColor, black, 60%);
+$primaryColor15: mix($primaryColor, black, 50%);
+$primaryColor16: mix($primaryColor, black, 40%);
+$primaryColor17: mix($primaryColor, black, 30%);
+$primaryColor18: mix($primaryColor, black, 20%);
+$primaryColor19: mix($primaryColor, black, 10%);
+$primaryColor20: mix($primaryColor, black, 0%);
+
+//----------------------Dark
+$dark: #000000;
+$dark1: mix($dark, white, 10%);
+$dark2: mix($dark, white, 20%);
+$dark3: mix($dark, white, 30%);
+$dark4: mix($dark, white, 40%);
+$dark5: mix($dark, white, 50%);
+$dark6: mix($dark, white, 60%);
+$dark7: mix($dark, white, 70%);
+$dark8: mix($dark, white, 80%);
+$dark9: mix($dark, white, 90%);
+$dark10: mix($dark, white, 100%);
+
+//----------------------Light
+$light: #ffffff;
+$light1: mix($light, black, 90%);
+$light2: mix($light, black, 80%);
+$light3: mix($light, black, 70%);
+$light4: mix($light, black, 60%);
+$light5: mix($light, black, 50%);
+$light6: mix($light, black, 40%);
+$light7: mix($light, black, 30%);
+$light8: mix($light, black, 20%);
+$light9: mix($light, black, 10%);
+$light10: mix($light, black, 0%);
+
+//----------------------Specials------------------
+$colorSuccess: #3ab415;
+$colorWarning: #f1df17;
+$colorError: #ff4d4f;
+
+@mixin barsGradient() {
+  background-image: linear-gradient(
+    to right,
+    #11111b 0%,
+    #292b32 50%,
+    #0d0f16 100%
+  );
+  color: #ffffff;
+}
+
+//----------------------Sizes------------------
+$headerHeight: 58px;
+$headerHeightMobile: 58px;
+$footerHeight: 80px;
+$footerHeightMobile: 200px;

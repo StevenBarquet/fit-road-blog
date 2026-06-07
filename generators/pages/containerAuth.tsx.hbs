@@ -1,0 +1,19 @@
+import style from './{{pascalCase name}}.module.scss';
+import { AuthProvider } from 'src/app/_providers/AuthProvider/AuthProvider';
+
+/**
+ * {{pascalCase name}} Component:  Descripción del comportamiento...
+ */
+export function {{pascalCase name}}() {
+  // -----------------------CONSTS, HOOKS, STATES
+  // -----------------------MAIN METHODS
+  // -----------------------AUX METHODS
+  // -----------------------RENDER
+  return (
+    <AuthProvider>
+      <div className={style.{{pascalCase name}} }>
+        {{pascalCase name}}
+      </div>
+    </AuthProvider>
+  );
+}
