@@ -1,8 +1,8 @@
-export const commitID = `7ffe89cdb03aae5b1f5f05892876f5330660f4d4`;
+export const commitID = `00fa9a11b0777e9f55c13d628a62eb03d4669ee0`;
     
-  export const commitMssg = `fix build`;
+  export const commitMssg = `Conversion a PWS`;
   
-  export const commitDate = `Sun Jun 07 2026 14:37:17 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Sun Jun 07 2026 14:48:30 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   
