@@ -1,5 +1,11 @@
 # Project Rules
 
+## Git Policy
+
+- NEVER commit, push, or interact with git in any way
+- The user is solely responsible for all git operations
+- Do not run git add, git commit, git push, git stash, or any other git command
+
 ## Stack
 
 - Next.js 14 (App Router)

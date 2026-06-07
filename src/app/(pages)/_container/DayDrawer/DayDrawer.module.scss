@@ -2,17 +2,27 @@
 @import '/src/app/_styles/utils';
 
 .DayDrawer {
-  .ant-drawer-content-wrapper {
+  .ant-drawer-content {
+    background: $bgBase;
     border-radius: 16px 16px 0 0;
-    overflow: hidden;
   }
 
   .ant-drawer-header {
-    text-transform: capitalize;
+    background: $bgBase;
+    border-bottom: 1px solid $borderSubtle;
+  }
+
+  .ant-drawer-header-title .ant-drawer-title {
+    color: $textPrimary;
     font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .ant-drawer-close {
+    color: $textSecondary;
   }
 
   .ant-drawer-body {
-    padding: 16px 20px;
+    padding: 20px 16px;
   }
 }

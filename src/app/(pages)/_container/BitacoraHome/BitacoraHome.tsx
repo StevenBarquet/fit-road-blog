@@ -1,38 +1,49 @@
 'use client';
 
 // ---Dependencies
-import { type ReactElement } from 'react';
+import { type ReactElement, useState } from 'react';
 import { Spin } from 'antd';
+import { Icon } from '@iconify/react';
 // ---Custom Hooks
-import { useFetchBitacoraMonth } from 'src/app/_querys/bitacora/useFetchBitacora';
+import { useFetchBitacoraRange } from 'src/app/_querys/bitacora/useFetchBitacora';
 // ---Components
-import { BitacoraCalendar } from '../BitacoraCalendar/BitacoraCalendar';
-import { DaySummary } from '../DaySummary/DaySummary';
+import { WeeklyCalendar } from '../WeeklyCalendar/WeeklyCalendar';
 import { DayDrawer } from '../DayDrawer/DayDrawer';
+import { ExportDrawer } from '../ExportDrawer/ExportDrawer';
 // ---Config
 import style from './BitacoraHome.module.scss';
 
 export function BitacoraHome(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const { isLoading } = useFetchBitacoraMonth();
+  const { isLoading } = useFetchBitacoraRange();
+  const [exportOpen, setExportOpen] = useState(false);
 
   // -----------------------RENDER
   return (
     <div className={style.BitacoraHome}>
-      <h1>Bitácora Alimentación</h1>
+      <header>
+        <div className="brand">
+          <span className="brand-icon">🔥</span>
+          <div className="brand-text">
+            <h1>Fit Road</h1>
+            <span className="brand-sub">bitácora alimentación</span>
+          </div>
+        </div>
+        <button className="export-btn" onClick={() => setExportOpen(true)} type="button">
+          <Icon icon="mdi:download" width={20} />
+        </button>
+      </header>
 
       {isLoading ? (
         <div className="center-block">
           <Spin size="large" />
         </div>
       ) : (
-        <>
-          <BitacoraCalendar />
-          <DaySummary />
-        </>
+        <WeeklyCalendar />
       )}
 
       <DayDrawer />
+      <ExportDrawer open={exportOpen} onClose={() => setExportOpen(false)} />
     </div>
   );
 }

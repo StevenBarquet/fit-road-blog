@@ -7,15 +7,62 @@
   margin: 0 auto;
 
   @include onlyIn(mob) {
-    padding: 12px;
+    padding: 12px 8px;
   }
 
-  h1 {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 4px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand-icon {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .brand-text h1 {
     font-size: 20px;
-    font-weight: 700;
-    color: $dark;
-    margin-bottom: 16px;
-    text-align: center;
+    font-weight: 800;
+    color: $textPrimary;
+    letter-spacing: -0.5px;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .brand-sub {
+    font-size: 11px;
+    font-weight: 500;
+    color: $textMuted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .export-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid $borderSubtle;
+    background: $bgCard;
+    color: $textSecondary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:active {
+      background: $bgCardHover;
+      color: $textPrimary;
+    }
   }
 
   .center-block {

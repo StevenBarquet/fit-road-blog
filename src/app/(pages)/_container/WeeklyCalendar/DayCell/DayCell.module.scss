@@ -1,0 +1,60 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.DayCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 2px;
+  min-height: 70px;
+  background: $bgCard;
+  border: 1px solid $borderSubtle;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  .day-number {
+    font-size: 12px;
+    font-weight: 600;
+    color: $textSecondary;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 4px;
+    line-height: 1.2;
+  }
+
+  .peso {
+    font-size: 10px;
+    color: $textMuted;
+    font-weight: 500;
+  }
+
+  .note-icon {
+    font-size: 6px;
+    color: $primaryColor;
+    line-height: 1;
+  }
+}
+
+.DayCell.today {
+  border-color: $primaryColor;
+  box-shadow: 0 0 0 1px $primaryColor;
+
+  .day-number {
+    color: $primaryColor;
+  }
+}
+
+.DayCell.selected {
+  background: $bgCardHover;
+}
+
+.DayCell.future {
+  opacity: 0.4;
+}

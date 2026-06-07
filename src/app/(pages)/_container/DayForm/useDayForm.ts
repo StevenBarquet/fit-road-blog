@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 // ---Custom Hooks
 import { useBitacoraStore } from 'src/app/_store/bitacoraData/bitacoraStore';
-import { useUpsertBitacora, useDeleteBitacora } from 'src/app/_querys/bitacora/useFetchBitacora';
+import { useUpsertBitacora } from 'src/app/_querys/bitacora/useFetchBitacora';
 // ---Config
 import { type BitacoraFromDB, type Calificacion, type Nivel } from 'src/server/entities/bitacora/bitacoraTypes';
 import { swalApiConfirm, swalApiError } from 'src/app/_utils/functions/alertUtils';
@@ -43,9 +43,8 @@ function hasOverwrittenFields(
 }
 
 export function useDayForm() {
-  const { selectedDate, getSelectedEntry, setDrawerOpen } = useBitacoraStore();
+  const { selectedDate, getSelectedEntry, setDrawerMode } = useBitacoraStore();
   const upsertMutation = useUpsertBitacora();
-  const deleteMutation = useDeleteBitacora();
   const entry = getSelectedEntry();
 
   const formik = useFormik<DayFormValues>({
@@ -64,7 +63,7 @@ export function useDayForm() {
             nivel: values.nivel ? Number(values.nivel) as Nivel : null,
             nota: values.nota,
           });
-          setDrawerOpen(false);
+          setDrawerMode('closed');
         } catch {
           await swalApiError('Error al guardar el registro');
         }
@@ -82,22 +81,5 @@ export function useDayForm() {
     },
   });
 
-  async function handleDelete() {
-    if (!selectedDate) return;
-
-    await swalApiConfirm({
-      callback: async () => {
-        try {
-          await deleteMutation.mutateAsync({ id: selectedDate });
-          setDrawerOpen(false);
-        } catch {
-          await swalApiError('Error al eliminar el registro');
-        }
-      },
-      confirmMsg: '¿Seguro que quieres eliminar el registro de este día?',
-      successMsg: 'Registro eliminado',
-    });
-  }
-
-  return { formik, entry, handleDelete };
+  return { formik };
 }

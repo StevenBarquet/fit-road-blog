@@ -4,6 +4,7 @@ import {
   bitacoraUpsertSchema,
   bitacoraDeleteSchema,
   bitacoraGetByMonthSchema,
+  bitacoraGetByRangeSchema,
 } from "src/server/entities/bitacora/validations/model";
 import { type BitacoraFromDB, type UpsertBitacora } from "src/server/entities/bitacora/bitacoraTypes";
 
@@ -18,6 +19,17 @@ export const bitacoraRouter = createTRPCRouter({
       const result = await bitacoraRepo.find();
       const entries: BitacoraFromDB[] = result.results.filter(
         (entry) => entry.id.startsWith(prefix)
+      );
+      return entries;
+    }),
+
+  getByRange: publicProcedure
+    .input(async (raw) => await bitacoraGetByRangeSchema.validate(raw))
+    .query(async ({ input }) => {
+      const { from, to } = input;
+      const result = await bitacoraRepo.find();
+      const entries: BitacoraFromDB[] = result.results.filter(
+        (entry) => entry.id >= from && entry.id <= to
       );
       return entries;
     }),

@@ -1,0 +1,42 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.WeekSummaryBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  background: $bgCard;
+  border-radius: 6px;
+  margin: 4px 0;
+
+  .label {
+    font-size: 11px;
+    font-weight: 600;
+    color: $textMuted;
+  }
+
+  .avg {
+    font-size: 11px;
+    font-weight: 500;
+    color: $textSecondary;
+  }
+
+  .avg.no-data {
+    color: $textMuted;
+  }
+
+  .trend-down {
+    color: $calA;
+    font-weight: 700;
+  }
+
+  .trend-up {
+    color: $calD;
+    font-weight: 700;
+  }
+
+  .trend-flat {
+    color: $textMuted;
+  }
+}

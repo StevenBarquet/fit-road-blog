@@ -7,12 +7,12 @@ import { Input, Button } from 'antd';
 import { useDayForm } from './useDayForm';
 // ---Config
 import { CALIFICACIONES, NIVELES } from 'src/server/entities/bitacora/bitacoraTypes';
-import { CALIFICACION_COLORS } from '../BitacoraCalendar/calendarUtils';
+import { CALIFICACION_COLORS } from '../WeeklyCalendar/calendarUtils';
 import style from './DayForm.module.scss';
 
 export function DayForm(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const { formik, entry, handleDelete } = useDayForm();
+  const { formik } = useDayForm();
   const { values, setFieldValue, isSubmitting, handleSubmit } = formik;
 
   // -----------------------RENDER
@@ -88,16 +88,6 @@ export function DayForm(): ReactElement {
           >
             Guardar
           </Button>
-          {entry && (
-            <Button
-              danger
-              type="text"
-              onClick={handleDelete}
-              block
-            >
-              Eliminar registro
-            </Button>
-          )}
         </div>
       </form>
     </div>

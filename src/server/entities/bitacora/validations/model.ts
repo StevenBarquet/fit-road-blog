@@ -16,3 +16,8 @@ export const bitacoraGetByMonthSchema = yup.object({
   month: yup.number().min(0).max(11).required(),
   year: yup.number().min(2020).max(2100).required(),
 });
+
+export const bitacoraGetByRangeSchema = yup.object({
+  from: yup.string().required().matches(/^\d{4}-\d{2}-\d{2}$/),
+  to: yup.string().required().matches(/^\d{4}-\d{2}-\d{2}$/),
+});

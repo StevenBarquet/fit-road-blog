@@ -1,0 +1,77 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.DayReadView {
+  .calificacion-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .cal-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .cal-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: $textPrimary;
+  }
+
+  .nivel {
+    font-size: 14px;
+    color: $textSecondary;
+    margin-left: auto;
+    background: $bgCard;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .peso-section {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: $bgCard;
+    border-radius: 10px;
+  }
+
+  .peso-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: $textPrimary;
+  }
+
+  .peso-unit {
+    font-size: 16px;
+    color: $textSecondary;
+  }
+
+  blockquote {
+    font-size: 14px;
+    color: $textSecondary;
+    line-height: 1.5;
+    padding: 12px;
+    margin: 0 0 20px 0;
+    background: $bgCard;
+    border-radius: 8px;
+    border-left: 3px solid $primaryColor;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+  }
+}

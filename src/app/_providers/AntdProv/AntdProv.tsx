@@ -22,7 +22,12 @@ export function AntdProv({ children }: Props) {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: colors.primaryColor || undefined
+          colorPrimary: colors.primaryColor || undefined,
+          colorBgContainer: '#1a1a2e',
+          colorBgElevated: '#1a1a2e',
+          colorText: '#e8e8f0',
+          colorTextSecondary: '#8888a0',
+          colorBorder: '#2a2a3e',
         }
       }}
     >
