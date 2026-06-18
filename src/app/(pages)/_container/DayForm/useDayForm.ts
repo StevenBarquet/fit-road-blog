@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 // ---Custom Hooks
 import { useBitacoraStore } from 'src/app/_store/bitacoraData/bitacoraStore';
 import { useUpsertBitacora } from 'src/app/_querys/bitacora/useFetchBitacora';
+import { useUpsertBitacoraPictures, useFetchBitacoraPictures } from 'src/app/_querys/bitacoraPictures/useFetchBitacoraPictures';
 // ---Config
 import { type BitacoraFromDB, type Calificacion, type Nivel } from 'src/server/entities/bitacora/bitacoraTypes';
+import { type BitacoraPictureItem } from 'src/server/entities/bitacoraPictures/bitacoraPicturesTypes';
 import { swalApiConfirm, swalApiError } from 'src/app/_utils/functions/alertUtils';
 
 const formSchema = yup.object({
@@ -45,7 +48,17 @@ function hasOverwrittenFields(
 export function useDayForm() {
   const { selectedDate, getSelectedEntry, setDrawerMode } = useBitacoraStore();
   const upsertMutation = useUpsertBitacora();
+  const upsertPicturesMutation = useUpsertBitacoraPictures();
   const entry = getSelectedEntry();
+
+  const picturesQuery = useFetchBitacoraPictures(selectedDate);
+  const [pictures, setPictures] = useState<BitacoraPictureItem[]>([]);
+  const [picturesInitialized, setPicturesInitialized] = useState(false);
+
+  if (picturesQuery.data && !picturesInitialized) {
+    setPictures(picturesQuery.data.images);
+    setPicturesInitialized(true);
+  }
 
   const formik = useFormik<DayFormValues>({
     initialValues: getInitialValues(entry),
@@ -62,7 +75,14 @@ export function useDayForm() {
             calificacion: values.calificacion as Calificacion | null,
             nivel: values.nivel ? Number(values.nivel) as Nivel : null,
             nota: values.nota,
+            hasPictures: pictures.length > 0,
           });
+
+          await upsertPicturesMutation.mutateAsync({
+            id: selectedDate,
+            images: pictures,
+          });
+
           setDrawerMode('closed');
         } catch {
           await swalApiError('Error al guardar el registro');
@@ -81,5 +101,5 @@ export function useDayForm() {
     },
   });
 
-  return { formik };
+  return { formik, pictures, setPictures };
 }

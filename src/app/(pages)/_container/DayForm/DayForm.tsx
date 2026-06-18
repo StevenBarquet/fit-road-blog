@@ -2,18 +2,44 @@
 
 // ---Dependencies
 import { type ReactElement } from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, Upload } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import type { UploadFile } from 'antd';
 // ---Custom Hooks
 import { useDayForm } from './useDayForm';
 // ---Config
 import { CALIFICACIONES, NIVELES } from 'src/server/entities/bitacora/bitacoraTypes';
 import { CALIFICACION_COLORS } from '../WeeklyCalendar/calendarUtils';
+import { compressImageToBase64 } from 'src/app/_utils/compressImage';
 import style from './DayForm.module.scss';
 
 export function DayForm(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const { formik } = useDayForm();
+  const { formik, pictures, setPictures } = useDayForm();
   const { values, setFieldValue, isSubmitting, handleSubmit } = formik;
+
+  const fileList: UploadFile[] = pictures.map((pic, i) => ({
+    uid: `pic-${i}`,
+    name: `foto-${i + 1}.jpg`,
+    status: 'done',
+    url: pic.base64,
+  }));
+
+  // -----------------------MAIN METHODS
+  async function handleUpload(file: File) {
+    const base64 = await compressImageToBase64(file);
+    const newPicture = { base64, createdAt: new Date().toISOString() };
+    setPictures([...pictures, newPicture]);
+  }
+
+  function handleRemove(file: UploadFile) {
+    const index = fileList.findIndex((f) => f.uid === file.uid);
+    if (index === -1) return;
+
+    const newPictures = [...pictures];
+    newPictures.splice(index, 1);
+    setPictures(newPictures);
+  }
 
   // -----------------------RENDER
   return (
@@ -77,6 +103,28 @@ export function DayForm(): ReactElement {
             value={values.nota}
             onChange={(e) => setFieldValue('nota', e.target.value)}
           />
+        </div>
+
+        <div className="field-group">
+          <label>Fotos</label>
+          <Upload
+            listType="picture-card"
+            fileList={fileList}
+            beforeUpload={(file) => {
+              handleUpload(file);
+              return false;
+            }}
+            onRemove={handleRemove}
+            maxCount={3}
+            accept="image/*"
+          >
+            {fileList.length < 3 && (
+              <div>
+                <PlusOutlined />
+                <div className="upload-text">Subir</div>
+              </div>
+            )}
+          </Upload>
         </div>
 
         <div className="actions">

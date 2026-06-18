@@ -92,6 +92,7 @@ export function ExportDrawer({ open, onClose }: Props): ReactElement {
           onChange={handleRangeChange}
           format="DD MMM YYYY"
           size="large"
+          popupClassName={style.rangeDropdown}
           style={{ width: '100%' }}
         />
       </div>

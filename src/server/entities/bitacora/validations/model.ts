@@ -6,6 +6,7 @@ export const bitacoraUpsertSchema = yup.object({
   calificacion: yup.string().nullable().oneOf(['A', 'B', 'C', 'D', null]),
   nivel: yup.number().nullable().oneOf([1, 2, 3, null]),
   nota: yup.string().default(''),
+  hasPictures: yup.boolean().default(false),
 });
 
 export const bitacoraDeleteSchema = yup.object({

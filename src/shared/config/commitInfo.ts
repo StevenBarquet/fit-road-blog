@@ -1,8 +1,8 @@
-export const commitID = `4830f1234e5e7c4ca4f6398bd659dbfbc5739b08`;
+export const commitID = `f0366da324d308047e507a06c44a65098dd4ba4c`;
     
-  export const commitMssg = `Navigation working for Week picker`;
+  export const commitMssg = `funcionalidad de carga de fotografía agregada`;
   
-  export const commitDate = `Thu Jun 18 2026 13:12:12 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Thu Jun 18 2026 14:52:37 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   

@@ -9,6 +9,7 @@ export interface ModelBitacora {
   calificacion: Calificacion | null;
   nivel: Nivel | null;
   nota: string;
+  hasPictures: boolean;
 }
 
 export interface BitacoraFromDB extends ModelBitacora {
