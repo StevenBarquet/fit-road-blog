@@ -3,7 +3,9 @@
 // ---Dependencies
 import { type ReactElement, useState } from 'react';
 import { Icon } from '@iconify/react';
-import dayjs from 'dayjs';
+import { DatePicker, ConfigProvider } from 'antd';
+import dayjs, { type Dayjs } from 'dayjs';
+import locale from 'antd/locale/es_ES';
 // ---Custom Hooks
 import { useBitacoraStore } from 'src/app/_store/bitacoraData/bitacoraStore';
 // ---Config
@@ -13,6 +15,7 @@ export function TimeNav(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
   const { setDateRange } = useBitacoraStore();
   const [offset, setOffset] = useState(0);
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   const today = dayjs();
   const currentWeekMonday = today.isoWeekday(1);
@@ -44,11 +47,25 @@ export function TimeNav(): ReactElement {
     navigate(0);
   }
 
+  function handleWeekSelect(date: Dayjs | null): void {
+    if (!date) return;
+    const selectedMonday = date.isoWeekday(1);
+    const defaultFrom = currentWeekMonday.subtract(3, 'week');
+    const diffWeeks = defaultFrom.diff(selectedMonday, 'week');
+    const newOffset = Math.max(0, Math.floor(diffWeeks / 4));
+    navigate(newOffset);
+    setPickerOpen(false);
+  }
+
   // -----------------------AUX METHODS
   function formatRange(): string {
     const fromStr = from.format('D MMM');
     const toStr = to.format('D MMM');
     return `${fromStr} – ${toStr}`;
+  }
+
+  function disabledDate(current: Dayjs): boolean {
+    return current.isAfter(today, 'day');
   }
 
   // -----------------------RENDER
@@ -58,7 +75,7 @@ export function TimeNav(): ReactElement {
         <Icon icon="mdi:chevron-left" width={20} />
       </button>
 
-      <button className="range-label" type="button">
+      <button className="range-label" onClick={() => setPickerOpen(true)} type="button">
         <span>{formatRange().toUpperCase()}</span>
         <Icon icon="mdi:chevron-down" width={14} />
       </button>
@@ -80,6 +97,22 @@ export function TimeNav(): ReactElement {
       >
         <Icon icon="mdi:calendar-today" width={18} />
       </button>
+
+      <div className="picker-wrapper">
+        <ConfigProvider locale={locale}>
+          <DatePicker
+            picker="week"
+            popupClassName="week-picker-popup"
+            open={pickerOpen}
+            onOpenChange={setPickerOpen}
+            onChange={handleWeekSelect}
+            disabledDate={disabledDate}
+            allowClear={false}
+            suffixIcon={null}
+            inputReadOnly
+          />
+        </ConfigProvider>
+      </div>
     </div>
   );
 }

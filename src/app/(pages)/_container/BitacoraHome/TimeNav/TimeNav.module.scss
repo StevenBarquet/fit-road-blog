@@ -2,11 +2,24 @@
 @import '/src/app/_styles/utils';
 
 .TimeNav {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
   margin-bottom: 16px;
+
+  .picker-wrapper {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+
+    .ant-picker {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
 
   .nav-btn {
     width: 32px;
