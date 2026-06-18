@@ -7,53 +7,47 @@ import { DatePicker, ConfigProvider } from 'antd';
 import dayjs, { type Dayjs } from 'dayjs';
 import locale from 'antd/locale/es_ES';
 // ---Custom Hooks
-import { useBitacoraStore } from 'src/app/_store/bitacoraData/bitacoraStore';
+import { useBitacoraStore, getDefaultDateRange } from 'src/app/_store/bitacoraData/bitacoraStore';
 // ---Config
 import style from './TimeNav.module.scss';
 
 export function TimeNav(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const { setDateRange } = useBitacoraStore();
-  const [offset, setOffset] = useState(0);
+  const { dateRange, setDateRange } = useBitacoraStore();
   const [pickerOpen, setPickerOpen] = useState(false);
+
+  const from = dayjs(dateRange.from);
+  const to = dayjs(dateRange.to);
+  const defaultRange = getDefaultDateRange();
+  const isDefault = dateRange.from === defaultRange.from && dateRange.to === defaultRange.to;
 
   const today = dayjs();
   const currentWeekMonday = today.isoWeekday(1);
-  const from = currentWeekMonday.subtract(3 + (offset * 4), 'week');
-  const to = from.add(4, 'week').subtract(1, 'day');
-
-  const isDefault = offset === 0;
+  const maxSelectableMonday = currentWeekMonday.subtract(3, 'week');
 
   // -----------------------MAIN METHODS
-  function navigate(newOffset: number): void {
-    setOffset(newOffset);
-    const newFrom = currentWeekMonday.subtract(3 + (newOffset * 4), 'week');
-    const newTo = newFrom.add(4, 'week').subtract(1, 'day');
-    setDateRange({
-      from: newFrom.format('YYYY-MM-DD'),
-      to: newTo.format('YYYY-MM-DD'),
-    });
-  }
-
   function goBack(): void {
-    navigate(offset + 1);
+    const newFrom = from.subtract(4, 'week');
+    const newTo = newFrom.add(4, 'week').subtract(1, 'day');
+    setDateRange({ from: newFrom.format('YYYY-MM-DD'), to: newTo.format('YYYY-MM-DD') });
   }
 
   function goForward(): void {
-    navigate(Math.max(0, offset - 1));
+    const newFrom = from.add(4, 'week');
+    if (newFrom.isAfter(maxSelectableMonday, 'day')) return;
+    const newTo = newFrom.add(4, 'week').subtract(1, 'day');
+    setDateRange({ from: newFrom.format('YYYY-MM-DD'), to: newTo.format('YYYY-MM-DD') });
   }
 
   function goToday(): void {
-    navigate(0);
+    setDateRange(defaultRange);
   }
 
   function handleWeekSelect(date: Dayjs | null): void {
     if (!date) return;
     const selectedMonday = date.isoWeekday(1);
-    const defaultFrom = currentWeekMonday.subtract(3, 'week');
-    const diffWeeks = defaultFrom.diff(selectedMonday, 'week');
-    const newOffset = Math.max(0, Math.floor(diffWeeks / 4));
-    navigate(newOffset);
+    const newTo = selectedMonday.add(4, 'week').subtract(1, 'day');
+    setDateRange({ from: selectedMonday.format('YYYY-MM-DD'), to: newTo.format('YYYY-MM-DD') });
     setPickerOpen(false);
   }
 
@@ -65,7 +59,12 @@ export function TimeNav(): ReactElement {
   }
 
   function disabledDate(current: Dayjs): boolean {
-    return current.isAfter(today, 'day');
+    return current.isoWeekday(1).isAfter(maxSelectableMonday, 'day');
+  }
+
+  function isForwardDisabled(): boolean {
+    const nextFrom = from.add(4, 'week');
+    return nextFrom.isAfter(maxSelectableMonday, 'day');
   }
 
   // -----------------------RENDER
@@ -83,7 +82,7 @@ export function TimeNav(): ReactElement {
       <button
         className="nav-btn"
         onClick={goForward}
-        disabled={isDefault}
+        disabled={isForwardDisabled()}
         type="button"
       >
         <Icon icon="mdi:chevron-right" width={20} />
@@ -107,6 +106,7 @@ export function TimeNav(): ReactElement {
             onOpenChange={setPickerOpen}
             onChange={handleWeekSelect}
             disabledDate={disabledDate}
+            value={from}
             allowClear={false}
             suffixIcon={null}
             inputReadOnly

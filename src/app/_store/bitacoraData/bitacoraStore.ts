@@ -8,7 +8,7 @@ dayjs.extend(isoWeek);
 
 type DrawerMode = 'closed' | 'read' | 'form';
 
-function computeDateRange() {
+export function getDefaultDateRange(): { from: string; to: string } {
   const today = dayjs();
   const currentWeekMonday = today.isoWeekday(1);
   const from = currentWeekMonday.subtract(3, 'week').format('YYYY-MM-DD');
@@ -26,7 +26,7 @@ interface State {
 const initialState: State = {
   entries: [],
   selectedDate: dayjs().format('YYYY-MM-DD'),
-  dateRange: computeDateRange(),
+  dateRange: getDefaultDateRange(),
   drawerMode: 'closed',
 };
 
