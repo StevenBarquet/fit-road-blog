@@ -1,8 +1,8 @@
-export const commitID = `1503dd644b3013c675cdc76fb8d682d470e06a76`;
+export const commitID = `7e10d1d179885a3cc79fb9030c0780900c6b9342`;
     
-  export const commitMssg = `reglas estructurales de claude agregadas`;
+  export const commitMssg = `limpieza + refactor funcionando al 100`;
   
-  export const commitDate = `Thu Jun 18 2026 11:06:29 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Thu Jun 18 2026 11:11:22 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   

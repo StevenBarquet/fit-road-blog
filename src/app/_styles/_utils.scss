@@ -97,6 +97,18 @@ $breakpoints: (
   }
 }
 
+@mixin pageContainer() {
+  padding: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+
+  @include onlyIn(mob) {
+    padding: 12px 8px;
+    padding-bottom: 80px;
+  }
+}
+
 .container {
   max-width: 1320px;
   margin-right: auto;

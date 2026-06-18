@@ -7,8 +7,9 @@ import { Icon } from '@iconify/react';
 // ---Custom Hooks
 import { useFetchBitacoraRange } from 'src/app/_querys/bitacora/useFetchBitacora';
 // ---Components
+import { PageHeader } from 'src/app/_layout/PageHeader/PageHeader';
 import { WeeklyCalendar } from '../WeeklyCalendar/WeeklyCalendar';
-import { TimeNav } from '../TimeNav/TimeNav';
+import { TimeNav } from './TimeNav/TimeNav';
 import { DayDrawer } from '../DayDrawer/DayDrawer';
 import { ExportDrawer } from '../ExportDrawer/ExportDrawer';
 // ---Config
@@ -22,15 +23,7 @@ export function BitacoraHome(): ReactElement {
   // -----------------------RENDER
   return (
     <div className={style.BitacoraHome}>
-      <header>
-        <div className="brand">
-          <span className="brand-icon">🔥</span>
-          <div className="brand-text">
-            <h1>Fit Road</h1>
-            <span className="brand-sub">bitácora alimentación</span>
-          </div>
-        </div>
-      </header>
+      <PageHeader subtitle="bitácora alimentación" />
 
       <TimeNav />
 

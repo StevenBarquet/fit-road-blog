@@ -1,0 +1,32 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.PageHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 0 4px;
+
+  .brand-icon {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .brand-text h1 {
+    font-size: 20px;
+    font-weight: 800;
+    color: $textPrimary;
+    letter-spacing: -0.5px;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .brand-sub {
+    font-size: 11px;
+    font-weight: 500;
+    color: $textMuted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}

@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { BottomNav } from '../_common/BottomNav/BottomNav';
+import { BottomNav } from './BottomNav/BottomNav';
 
 export function LayoutProvider({ children }: { children: ReactNode }) {
   return (
