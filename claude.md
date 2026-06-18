@@ -28,13 +28,13 @@ src/
 │   ├── (pages)/          # Route groups
 │   │   ├── _container/   # Page-level components (one per page)
 │   │   └── page.tsx      # Thin — just re-exports the container
-│   ├── _common/          # Shared reusable components
+│   ├── _common/          # Generic reusable UI building blocks (design-system level)
+│   ├── _layout/          # App shell components (nav, headers, wrappers)
+│   ├── _providers/       # Logical wrappers (providers, contexts, library config)
 │   ├── _querys/          # tRPC fetch hooks (one file per entity)
 │   ├── _store/           # Zustand stores (one folder per domain)
-│   ├── _providers/       # Context providers (tRPC, Antd, etc)
 │   ├── _utils/           # Hooks and utility functions
 │   ├── _styles/          # Global SCSS (variables, utils, theme)
-│   ├── _layout/          # Layout wrapper components
 │   └── _config/          # App-level config
 ├── server/
 │   ├── api/
@@ -64,7 +64,44 @@ Every component follows this internal structure:
 - Component name in PascalCase matches its folder and file name
 - Each component lives in its own folder: `ComponentName/ComponentName.tsx`
 - SCSS module file: `ComponentName/ComponentName.module.scss`
-- Auxiliary files (utils, constants) go in the same folder
+- Auxiliary files (utils, constants, hooks) go in the same folder as the component that uses them
+
+### Component Placement (Where does it live?)
+
+Decide placement by asking: **who uses this component?**
+
+| Who uses it | Where it lives | Examples |
+|-------------|---------------|----------|
+| Any component, context-agnostic (design-system level) | `src/app/_common/` | `EmptyState`, `Button`, generic form inputs |
+| All pages (app shell / global visual structure) | `src/app/_layout/` | `BottomNav`, `PageHeader`, `LayoutProvider` |
+| All pages (logical wrapper, non-visual) | `src/app/_providers/` | `TRPCReactProvider`, `AntdProv`, `AllProviders` |
+| A single parent component | Co-located inside the parent's folder | `TimeNav/` inside `BitacoraHome/` |
+
+### Co-location Rules
+
+Components specific to a parent live inside its folder, mirroring the component tree:
+
+```
+ParentComponent/
+├── ParentComponent.tsx
+├── ParentComponent.module.scss
+├── ChildA/
+│   ├── ChildA.tsx
+│   ├── ChildA.module.scss
+│   ├── GrandchildX/
+│   │   └── GrandchildX.tsx
+│   └── GrandchildY/
+│       └── GrandchildY.tsx
+└── ChildB/
+    └── ChildB.tsx
+```
+
+- Hooks, utils, constants that are specific to a component live in that component's folder
+- If `_common/` grows, group by type: `_common/buttons/`, `_common/FormControl/`, etc.
+
+### Abstraction Rule
+
+When a pattern (component, hook, util, mixin) repeats across unrelated components, extract it into `_common/`, `_utils/`, or `_styles/` as appropriate. Do not tolerate copy-paste across siblings.
 
 ### Style Import Variable
 
