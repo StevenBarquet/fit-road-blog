@@ -8,6 +8,7 @@ import { Icon } from '@iconify/react';
 import { useFetchBitacoraRange } from 'src/app/_querys/bitacora/useFetchBitacora';
 // ---Components
 import { WeeklyCalendar } from '../WeeklyCalendar/WeeklyCalendar';
+import { TimeNav } from '../TimeNav/TimeNav';
 import { DayDrawer } from '../DayDrawer/DayDrawer';
 import { ExportDrawer } from '../ExportDrawer/ExportDrawer';
 // ---Config
@@ -29,17 +30,22 @@ export function BitacoraHome(): ReactElement {
             <span className="brand-sub">bitácora alimentación</span>
           </div>
         </div>
-        <button className="export-btn" onClick={() => setExportOpen(true)} type="button">
-          <Icon icon="mdi:download" width={20} />
-        </button>
       </header>
+
+      <TimeNav />
 
       {isLoading ? (
         <div className="center-block">
           <Spin size="large" />
         </div>
       ) : (
-        <WeeklyCalendar />
+        <>
+          <WeeklyCalendar />
+          <button className="export-btn" onClick={() => setExportOpen(true)} type="button">
+            <Icon icon="mdi:download" width={18} />
+            <span>Exportar</span>
+          </button>
+        </>
       )}
 
       <DayDrawer />

@@ -1,0 +1,87 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.TimeNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 16px;
+
+  .nav-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid $borderSubtle;
+    background: $bgCard;
+    color: $textSecondary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:active {
+      background: $bgCardHover;
+      color: $textPrimary;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+
+      &:active {
+        background: $bgCard;
+        color: $textSecondary;
+      }
+    }
+  }
+
+  .range-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    color: $textPrimary;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+
+    &:active {
+      background: $bgCardHover;
+    }
+  }
+
+  .today-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid $borderSubtle;
+    background: $bgCard;
+    color: $textSecondary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:active {
+      background: $bgCardHover;
+      color: $primaryColor;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+
+      &:active {
+        background: $bgCard;
+        color: $textSecondary;
+      }
+    }
+  }
+}

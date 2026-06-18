@@ -1,8 +1,8 @@
-export const commitID = `00fa9a11b0777e9f55c13d628a62eb03d4669ee0`;
+export const commitID = `58501614a746136d01ca679080f62ac153add665`;
     
-  export const commitMssg = `Conversion a PWS`;
+  export const commitMssg = `visuales añadidos para bottom nav y navegador de tiempo en calendario`;
   
-  export const commitDate = `Sun Jun 07 2026 14:48:30 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Thu Jun 18 2026 10:51:00 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   
