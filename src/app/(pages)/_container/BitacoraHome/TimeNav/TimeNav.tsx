@@ -4,11 +4,14 @@
 import { type ReactElement, useState } from 'react';
 import { Icon } from '@iconify/react';
 import dayjs from 'dayjs';
+// ---Custom Hooks
+import { useBitacoraStore } from 'src/app/_store/bitacoraData/bitacoraStore';
 // ---Config
 import style from './TimeNav.module.scss';
 
 export function TimeNav(): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
+  const { setDateRange } = useBitacoraStore();
   const [offset, setOffset] = useState(0);
 
   const today = dayjs();
@@ -19,16 +22,26 @@ export function TimeNav(): ReactElement {
   const isDefault = offset === 0;
 
   // -----------------------MAIN METHODS
+  function navigate(newOffset: number): void {
+    setOffset(newOffset);
+    const newFrom = currentWeekMonday.subtract(3 + (newOffset * 4), 'week');
+    const newTo = newFrom.add(4, 'week').subtract(1, 'day');
+    setDateRange({
+      from: newFrom.format('YYYY-MM-DD'),
+      to: newTo.format('YYYY-MM-DD'),
+    });
+  }
+
   function goBack(): void {
-    setOffset((prev) => prev + 1);
+    navigate(offset + 1);
   }
 
   function goForward(): void {
-    setOffset((prev) => Math.max(0, prev - 1));
+    navigate(Math.max(0, offset - 1));
   }
 
   function goToday(): void {
-    setOffset(0);
+    navigate(0);
   }
 
   // -----------------------AUX METHODS

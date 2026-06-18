@@ -33,6 +33,7 @@ const initialState: State = {
 export interface BitacoraStore extends State {
   setEntries: (entries: BitacoraFromDB[]) => void;
   setSelectedDate: (date: string | null) => void;
+  setDateRange: (range: { from: string; to: string }) => void;
   setDrawerMode: (mode: DrawerMode) => void;
   openDay: (date: string) => void;
   getSelectedEntry: () => BitacoraFromDB | undefined;
@@ -44,6 +45,7 @@ const actions: StateCreator<BitacoraStore> = (set, get) => ({
   ...initialState,
   setEntries: (entries) => set({ entries }),
   setSelectedDate: (selectedDate) => set({ selectedDate }),
+  setDateRange: (dateRange) => set({ dateRange }),
   setDrawerMode: (drawerMode) => set({ drawerMode }),
   openDay: (date) => {
     const { entries } = get();
