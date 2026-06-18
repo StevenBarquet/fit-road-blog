@@ -35,9 +35,21 @@
     font-weight: 500;
   }
 
+  .indicators {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
   .note-icon {
     font-size: 6px;
     color: $primaryColor;
+    line-height: 1;
+  }
+
+  .pic-icon {
+    font-size: 11px;
+    color: $primaryColor2;
     line-height: 1;
   }
 }

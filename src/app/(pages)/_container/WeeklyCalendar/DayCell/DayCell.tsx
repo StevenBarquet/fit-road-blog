@@ -4,6 +4,7 @@
 import { type ReactElement } from 'react';
 import { type Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
+import { CameraOutlined } from '@ant-design/icons';
 // ---Custom Hooks
 import { useBitacoraStore } from 'src/app/_store/bitacoraData/bitacoraStore';
 // ---Config
@@ -49,7 +50,12 @@ export function DayCell({ date, entry }: Props): ReactElement {
         </span>
       )}
       {entry?.peso && <span className="peso">{entry.peso}</span>}
-      {entry?.nota && <span className="note-icon">●</span>}
+      {(entry?.nota || entry?.hasPictures) && (
+        <span className="indicators">
+          {entry?.nota && <span className="note-icon">●</span>}
+          {entry?.hasPictures && <CameraOutlined className="pic-icon" />}
+        </span>
+      )}
     </button>
   );
 }

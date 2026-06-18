@@ -1,8 +1,8 @@
-export const commitID = `f0366da324d308047e507a06c44a65098dd4ba4c`;
+export const commitID = `ab33934a9ae9ba38e36ea7fa765174305e3a7e6d`;
     
-  export const commitMssg = `funcionalidad de carga de fotografía agregada`;
+  export const commitMssg = `indicador de camara agregado`;
   
-  export const commitDate = `Thu Jun 18 2026 14:52:37 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Thu Jun 18 2026 14:59:52 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   
