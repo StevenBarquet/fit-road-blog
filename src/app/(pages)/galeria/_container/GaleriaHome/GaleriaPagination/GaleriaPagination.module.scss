@@ -1,0 +1,8 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.GaleriaPagination {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}

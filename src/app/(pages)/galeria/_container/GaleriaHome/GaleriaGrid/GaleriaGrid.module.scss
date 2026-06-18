@@ -1,0 +1,27 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.GaleriaGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .date-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .date-group h3 {
+    font-size: 14px;
+    color: $textSecondary;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .date-group .images-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}

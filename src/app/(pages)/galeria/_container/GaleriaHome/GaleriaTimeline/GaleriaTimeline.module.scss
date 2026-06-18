@@ -1,0 +1,65 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.GaleriaTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 12px;
+  border-left: 2px solid $borderSubtle;
+
+  .timeline-entry {
+    position: relative;
+    padding: 0 0 24px 20px;
+  }
+
+  .timeline-entry .timeline-dot {
+    position: absolute;
+    left: -19px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $primaryColor;
+    border: 2px solid $bgBase;
+    box-shadow: 0 0 0 3px $borderSubtle;
+  }
+
+  .timeline-entry .entry-content {
+    background: $bgCard;
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid $borderSubtle;
+  }
+
+  .timeline-entry .entry-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .timeline-entry .entry-header .entry-date {
+    font-size: 12px;
+    color: $textSecondary;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .timeline-entry .entry-header .entry-peso {
+    font-size: 14px;
+    color: $primaryColor;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .timeline-entry .entry-images {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}

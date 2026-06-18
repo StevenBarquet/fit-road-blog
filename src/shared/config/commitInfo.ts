@@ -1,8 +1,8 @@
-export const commitID = `ab33934a9ae9ba38e36ea7fa765174305e3a7e6d`;
+export const commitID = `9e23b9c9aa9aac49e8f4957439d9a63e335d84e7`;
     
-  export const commitMssg = `indicador de camara agregado`;
+  export const commitMssg = `Pagina de galería agregada`;
   
-  export const commitDate = `Thu Jun 18 2026 14:59:52 GMT-0600 (Central Standard Time)`;
+  export const commitDate = `Thu Jun 18 2026 17:54:03 GMT-0600 (Central Standard Time)`;
   
   export const commitAuthor = `Steven Barquet`;
   

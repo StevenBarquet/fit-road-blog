@@ -1,0 +1,51 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.GaleriaFilters {
+  background: $bgCard;
+  border-radius: 12px;
+  padding: 12px 16px;
+  border: 1px solid $borderSubtle;
+
+  .filter-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 12px;
+    border-top: 1px solid $borderSubtle;
+    margin-top: 8px;
+  }
+
+  .date-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .date-row .date-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .date-row .date-field label {
+    font-size: 11px;
+    color: $textSecondary;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .filter-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .filter-row label {
+    font-size: 11px;
+    color: $textSecondary;
+    font-weight: 500;
+  }
+}

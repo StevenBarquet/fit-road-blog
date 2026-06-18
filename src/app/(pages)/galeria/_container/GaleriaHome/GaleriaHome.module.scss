@@ -3,4 +3,35 @@
 
 .GaleriaHome {
   @include pageContainer();
+
+  .results-section {
+    margin-top: 20px;
+  }
+
+  .empty-state {
+    text-align: center;
+    color: $textMuted;
+    padding: 48px 0;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .empty-state .anticon {
+    font-size: 32px;
+    opacity: 0.5;
+  }
+
+  .loading-text {
+    text-align: center;
+    color: $textSecondary;
+    padding: 40px 0;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
 }
