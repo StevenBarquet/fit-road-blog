@@ -1,9 +1,9 @@
 'use client';
 
 // ---Dependencies
-import { type ReactElement } from 'react';
+import { type ReactElement, useRef } from 'react';
 import { Input, Button, Upload } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { CameraOutlined, PlusOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd';
 // ---Custom Hooks
 import { useDayForm } from './useDayForm';
@@ -25,11 +25,19 @@ export function DayForm(): ReactElement {
     url: pic.base64,
   }));
 
+  const cameraInputRef = useRef<HTMLInputElement>(null);
+
   // -----------------------MAIN METHODS
   async function handleUpload(file: File) {
     const base64 = await compressImageToBase64(file);
     const newPicture = { base64, createdAt: new Date().toISOString() };
     setPictures([...pictures, newPicture]);
+  }
+
+  function handleCameraCapture(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) void handleUpload(file);
+    e.target.value = '';
   }
 
   function handleRemove(file: UploadFile) {
@@ -107,6 +115,14 @@ export function DayForm(): ReactElement {
 
         <div className="field-group">
           <label>Fotos</label>
+          <input
+            ref={cameraInputRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={handleCameraCapture}
+            hidden
+          />
           <Upload
             listType="picture-card"
             fileList={fileList}
@@ -121,10 +137,19 @@ export function DayForm(): ReactElement {
             {fileList.length < 3 && (
               <div>
                 <PlusOutlined />
-                <div className="upload-text">Subir</div>
+                <div className="upload-text">Galería</div>
               </div>
             )}
           </Upload>
+          {fileList.length < 3 && (
+            <Button
+              icon={<CameraOutlined />}
+              onClick={() => cameraInputRef.current?.click()}
+              className="camera-btn"
+            >
+              Tomar foto
+            </Button>
+          )}
         </div>
 
         <div className="actions">
