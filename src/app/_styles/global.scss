@@ -36,16 +36,10 @@ main {
   user-select: none;
 }
 
-// Week picker popup
+// Week picker popup (position + content-specific styles only)
 .week-picker-popup {
   left: 50% !important;
   transform: translateX(-50%) !important;
-
-  .ant-picker-panel-container {
-    border-radius: 12px;
-    border: 1px solid $borderSubtle;
-    overflow: hidden;
-  }
 
   .ant-picker-content {
     th, td {
@@ -56,10 +50,6 @@ main {
 
   .ant-picker-header {
     font-size: 15px;
-
-    button {
-      color: $textSecondary;
-    }
   }
 
   .ant-picker-cell-disabled .ant-picker-cell-inner {
@@ -71,6 +61,35 @@ main {
     opacity: 0.6;
     font-size: 11px;
     font-weight: 600;
+  }
+}
+
+// -----------ANT DESIGN GLOBAL OVERRIDES
+
+.ant-btn-primary {
+  box-shadow: 0 2px 0 $primaryColor8;
+}
+
+.ant-btn-primary:disabled {
+  color: $textMuted !important;
+  background: $bgCard !important;
+  border-color: $borderSubtle !important;
+  box-shadow: none;
+}
+
+.ant-picker-dropdown {
+  .ant-picker-header button {
+    color: $textSecondary !important;
+  }
+
+  .ant-picker-header button:hover {
+    color: $primaryColor !important;
+  }
+
+  .ant-picker-panel-container {
+    border-radius: 12px;
+    border: 1px solid $borderSubtle;
+    overflow: hidden;
   }
 }
 

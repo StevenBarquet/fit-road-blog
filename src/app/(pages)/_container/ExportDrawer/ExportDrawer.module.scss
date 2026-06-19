@@ -112,14 +112,6 @@
 }
 
 .rangeDropdown {
-  .ant-picker-header button {
-    color: $textSecondary !important;
-  }
-
-  .ant-picker-header button:hover {
-    color: $primaryColor !important;
-  }
-
   .ant-picker-panels > *:first-child button.ant-picker-header-next-btn,
   .ant-picker-panels > *:first-child button.ant-picker-header-super-next-btn {
     visibility: visible !important;
