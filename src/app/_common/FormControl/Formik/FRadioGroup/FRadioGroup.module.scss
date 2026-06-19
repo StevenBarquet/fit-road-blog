@@ -1,0 +1,55 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.FRadioGroup {
+  .group-label {
+    display: block;
+    font-size: 12px;
+    color: $textSecondary;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .radio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .radio-card {
+    border: 1px solid $borderSubtle;
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: $bgCard;
+  }
+
+  .radio-card:hover {
+    border-color: rgba($primaryColor, 0.4);
+  }
+
+  .radio-card.selected {
+    border-color: $primaryColor;
+    background: rgba($primaryColor, 0.06);
+  }
+
+  .radio-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  .radio-icon {
+    display: inline-flex;
+    font-size: 16px;
+  }
+
+  .radio-extra {
+    padding-top: 12px;
+    padding-left: 24px;
+  }
+}

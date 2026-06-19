@@ -2,66 +2,72 @@
 
 // ---Dependencies
 import { type ReactElement, useState } from 'react';
-import { Drawer, DatePicker, Button, message } from 'antd';
+import { Drawer, DatePicker, Button, Checkbox, message } from 'antd';
 import { Icon } from '@iconify/react';
-import dayjs, { type Dayjs } from 'dayjs';
+import { FilterOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 // ---Custom Hooks
-import { useBitacoraStore } from 'src/app/_store/bitacoraData/bitacoraStore';
+import { useExportForm } from './useExportForm';
+// ---Components
+import { FToggleGrid } from 'src/app/_common/FormControl/Formik/FToggleGrid/FToggleGrid';
+import { FRadioGroup } from 'src/app/_common/FormControl/Formik/FRadioGroup/FRadioGroup';
 // ---Config
-import { type BitacoraFromDB } from 'src/server/entities/bitacora/bitacoraTypes';
 import style from './ExportDrawer.module.scss';
 
 dayjs.locale('es');
 
 const { RangePicker } = DatePicker;
 
+const FIELD_OPTIONS = [
+  { label: 'Peso', value: 'peso' },
+  { label: 'Calificación', value: 'calificacion' },
+  { label: 'Fotos', value: 'hasPictures' },
+];
+
 interface Props {
   open: boolean;
   onClose: () => void;
 }
 
-function formatEntries(entries: BitacoraFromDB[]): string {
-  const sorted = [...entries].sort((a, b) => a.id.localeCompare(b.id));
-
-  return sorted.map((entry) => {
-    const date = dayjs(entry.id).format('DD-MMMM-YYYY');
-    const cal = entry.calificacion
-      ? `${entry.calificacion}${entry.nivel ?? ''}`
-      : 'NA';
-    const peso = entry.peso ? `${entry.peso}kg` : 'NA';
-    const nota = entry.nota ? `Nota: ${entry.nota}` : 'NA';
-    return `${date}\n${cal}\n${peso}\n${nota}`;
-  }).join('\n\n');
-}
-
 export function ExportDrawer({ open, onClose }: Props): ReactElement {
   // -----------------------CONSTS, HOOKS, STATES
-  const { entries } = useBitacoraStore();
-  const [range, setRange] = useState<[Dayjs | null, Dayjs | null]>([
-    dayjs().subtract(1, 'month'),
-    dayjs(),
-  ]);
+  const [panelOpen, setPanelOpen] = useState(true);
   const [exportText, setExportText] = useState<string | null>(null);
 
-  // -----------------------MAIN METHODS
-  function handleRangeChange(dates: [Dayjs | null, Dayjs | null] | null) {
-    if (dates) setRange(dates);
-  }
-
-  function handleExport() {
-    if (!range[0] || !range[1]) return;
-    const from = range[0].format('YYYY-MM-DD');
-    const to = range[1].format('YYYY-MM-DD');
-
-    const filtered = entries.filter((e) => e.id >= from && e.id <= to);
-    const text = filtered.length > 0
-      ? formatEntries(filtered)
-      : 'Sin registros en este periodo.';
-
+  const { formik, ALL_COMBOS, canSubmit } = useExportForm((text) => {
     setExportText(text);
-  }
+    setPanelOpen(false);
+  });
 
+  const notasOptions = [
+    {
+      label: 'Ninguna',
+      value: 'none',
+      icon: <Icon icon="mdi:note-off-outline" />,
+    },
+    {
+      label: 'Todas',
+      value: 'all',
+      icon: <Icon icon="mdi:note-check-outline" />,
+    },
+    {
+      label: 'Notas específicas',
+      value: 'filtered',
+      icon: <Icon icon="mdi:note-search-outline" />,
+      extra: (
+        <FToggleGrid
+          formik={formik}
+          valueName="notasCalificaciones"
+          options={ALL_COMBOS}
+          columns={4}
+          compact
+        />
+      ),
+    },
+  ];
+
+  // -----------------------MAIN METHODS
   async function handleCopy() {
     if (!exportText) return;
     await navigator.clipboard.writeText(exportText);
@@ -70,6 +76,8 @@ export function ExportDrawer({ open, onClose }: Props): ReactElement {
 
   function handleClose() {
     setExportText(null);
+    setPanelOpen(true);
+    formik.resetForm();
     onClose();
   }
 
@@ -79,35 +87,103 @@ export function ExportDrawer({ open, onClose }: Props): ReactElement {
       open={open}
       onClose={handleClose}
       placement="bottom"
-      height={exportText ? '80vh' : 'auto'}
-      title="Exportar datos"
+      height={exportText ? '85vh' : 'auto'}
+      title={
+        <span className="drawer-title">
+          <Icon icon="mdi:file-export-outline" /> Exportar datos
+        </span>
+      }
       className={style.ExportDrawer}
       destroyOnClose
     >
-      <p className="subtitle">¿Qué periodo quieres exportar?</p>
+      <Button
+        type="text"
+        block
+        onClick={() => setPanelOpen(!panelOpen)}
+        icon={<FilterOutlined />}
+        className="toggle-btn"
+      >
+        {panelOpen ? 'Ocultar filtros' : 'Mostrar filtros'}
+      </Button>
 
-      <div className="picker-wrapper">
-        <RangePicker
-          value={range}
-          onChange={handleRangeChange}
-          format="DD MMM YYYY"
-          size="large"
-          popupClassName={style.rangeDropdown}
-          style={{ width: '100%' }}
-        />
-      </div>
+      {panelOpen && (
+        <div className="filter-content">
+          <section className="filter-section">
+            <label className="section-label">
+              <Icon icon="mdi:calendar-range" /> Periodo
+            </label>
+            <RangePicker
+              value={formik.values.range}
+              onChange={(dates) => {
+                formik.setFieldValue('range', dates || [null, null]);
+                formik.setFieldTouched('range', true);
+              }}
+              format="DD MMM YYYY"
+              size="large"
+              popupClassName={style.rangeDropdown}
+              style={{ width: '100%' }}
+            />
+            {formik.touched.range && formik.errors.range && (
+              <div className="customHelper">{String(formik.errors.range)}</div>
+            )}
+          </section>
 
-      <div className="actions">
-        <Button
-          type="primary"
-          block
-          size="large"
-          onClick={handleExport}
-          disabled={!range[0] || !range[1]}
-        >
-          Exportar
-        </Button>
-      </div>
+          <section className="filter-section">
+            <label className="section-label">
+              <Icon icon="mdi:format-list-checks" /> Campos a exportar
+            </label>
+            <div className="fields-group">
+              <Checkbox.Group
+                value={formik.values.fields}
+                onChange={(checked) => {
+                  formik.setFieldValue('fields', checked);
+                  formik.setFieldTouched('fields', true);
+                }}
+              >
+                {FIELD_OPTIONS.map((opt) => (
+                  <Checkbox key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </Checkbox>
+                ))}
+              </Checkbox.Group>
+            </div>
+            {formik.touched.fields && formik.errors.fields && (
+              <div className="customHelper">{String(formik.errors.fields)}</div>
+            )}
+          </section>
+
+          <section className="filter-section">
+            <FToggleGrid
+              label="Filtrar por calificación"
+              formik={formik}
+              valueName="calificaciones"
+              options={ALL_COMBOS}
+              columns={4}
+            />
+          </section>
+
+          <section className="filter-section">
+            <FRadioGroup
+              label="Notas"
+              formik={formik}
+              valueName="notasMode"
+              options={notasOptions}
+            />
+          </section>
+
+          <Button
+            type="primary"
+            block
+            size="large"
+            onClick={() => formik.handleSubmit()}
+            disabled={!canSubmit}
+            icon={<Icon icon="mdi:export" />}
+            className="export-btn"
+          >
+            Generar exportación
+          </Button>
+        </div>
+      )}
 
       {exportText && (
         <div className="export-result">

@@ -17,29 +17,71 @@
     font-weight: 600;
   }
 
+  .drawer-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   .ant-drawer-close {
     color: $textSecondary;
   }
 
   .ant-drawer-body {
-    padding: 20px 16px;
+    padding: 16px;
     overflow-y: auto;
   }
 
-  .subtitle {
-    font-size: 15px;
+  .toggle-btn {
     color: $textSecondary;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
+    font-size: 13px;
   }
 
-  .picker-wrapper {
-    margin-bottom: 24px;
-  }
-
-  .actions {
+  .filter-content {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 24px;
+    padding-top: 16px;
+    border-top: 1px solid $borderSubtle;
+  }
+
+  .filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .section-label {
+    font-size: 12px;
+    color: $textSecondary;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .fields-group {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    background: $bgCard;
+    border-radius: 10px;
+    border: 1px solid $borderSubtle;
+  }
+
+  .fields-group .ant-checkbox-wrapper {
+    margin-inline: 10px;
+  }
+
+  .export-btn {
+    margin-top: 8px;
+    height: 44px;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 10px;
   }
 
   .export-result {
@@ -50,15 +92,16 @@
 
   .copy-btn {
     margin-bottom: 12px;
+    border-radius: 8px;
   }
 
   .export-block {
     background: $bgCard;
     border: 1px solid $borderSubtle;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 16px;
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.7;
     color: $textPrimary;
     white-space: pre-wrap;
     word-break: break-word;
@@ -69,6 +112,14 @@
 }
 
 .rangeDropdown {
+  .ant-picker-header button {
+    color: $textSecondary !important;
+  }
+
+  .ant-picker-header button:hover {
+    color: $primaryColor !important;
+  }
+
   .ant-picker-panels > *:first-child button.ant-picker-header-next-btn,
   .ant-picker-panels > *:first-child button.ant-picker-header-super-next-btn {
     visibility: visible !important;

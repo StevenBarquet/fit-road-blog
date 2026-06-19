@@ -83,6 +83,7 @@ export function GaleriaFilters(): ReactElement {
           </div>
 
           <Button
+            className="searchButton"
             type="primary"
             block
             onClick={handleSearch}

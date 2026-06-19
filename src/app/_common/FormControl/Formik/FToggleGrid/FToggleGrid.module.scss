@@ -1,0 +1,68 @@
+@import '/src/app/_styles/variables';
+@import '/src/app/_styles/utils';
+
+.FToggleGrid {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .header label {
+    font-size: 12px;
+    color: $textSecondary;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .header-minimal {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 4px;
+  }
+
+  .grid {
+    display: grid;
+    gap: 8px;
+  }
+
+  .tag {
+    border: 1px solid $borderSubtle;
+    background: $bgCard;
+    color: $textSecondary;
+    border-radius: 8px;
+    padding: 8px 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .tag:hover {
+    border-color: $primaryColor;
+    color: $primaryColor;
+    background: rgba($primaryColor, 0.05);
+  }
+
+  .tag.active {
+    background: rgba($primaryColor, 0.12);
+    border-color: $primaryColor;
+    color: $primaryColor;
+    box-shadow: 0 0 0 1px rgba($primaryColor, 0.2);
+  }
+}
+
+.compact {
+  .grid {
+    gap: 5px;
+  }
+
+  .tag {
+    padding: 5px 3px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+}

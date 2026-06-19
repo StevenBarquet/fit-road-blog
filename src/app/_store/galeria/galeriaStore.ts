@@ -1,5 +1,6 @@
 import { create, type StateCreator } from 'zustand';
 import { devtools } from 'zustand/middleware';
+import dayjs from 'dayjs';
 
 type Frequency = 'daily' | 'weekly' | 'monthly' | 'yearly';
 
@@ -12,9 +13,9 @@ interface State {
 }
 
 const initialState: State = {
-  from: null,
-  to: null,
-  frequency: 'daily',
+  from: dayjs().subtract(1, 'year').format('YYYY-MM-DD'),
+  to: dayjs().format('YYYY-MM-DD'),
+  frequency: 'monthly',
   page: 1,
   panelOpen: true,
 };

@@ -48,4 +48,11 @@
     color: $textSecondary;
     font-weight: 500;
   }
+
+  .searchButton {
+    width: 65%;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 2px 0 $primaryColor8;
+  }
 }
